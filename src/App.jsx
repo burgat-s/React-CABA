@@ -11,10 +11,10 @@ import Footer from "./components/Footer"
 
 function App() {
   return (
-    <div class="min-vh-100 d-flex flex-column">
+    <div className="min-vh-100 d-flex flex-column">
       <Router>
         <Header />
-        <div class="flex-grow-1">
+        <div className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -22,7 +22,7 @@ function App() {
             <Route path="/electronics" element={<Electronics />} />
           </Routes>
         </div>
-        <Footer class="fixed-bottom" />
+        <Footer className="fixed-bottom" />
       </Router>
     </div>
   );
