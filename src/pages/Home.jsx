@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { homeProducts } from "../services/api";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import SwalReact from "sweetalert2-react-content";
 
 import ProductCard from "../components/ProductCard";
 import SkeletonProductCard from "../skeletons/SkeletonProductCard";
@@ -12,17 +12,9 @@ function Home() {
   const [cargando, setCargando] = useState(true);
   const { error } = useParams();
 
-  const MySwal = withReactContent(Swal);
-
-  const showSwal = () => {
-    MySwal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Something went wrong!",
-    });
-  };
-
   useEffect(() => {
+
+
     homeProducts(error)
       .then((datos) => {
         console.log(datos);
@@ -30,10 +22,13 @@ function Home() {
         setCargando(false);
       })
       .catch(() => {
-        showSwal();
+        SwalReact(Swal).fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
       });
-  });
-  
+  }, [error]);
   return (
     <div className="d-flex flex-wrap justify-content-center">
       {
