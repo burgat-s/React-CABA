@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { homeProducts } from "../services/api";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 import ProductCard from "../components/ProductCard";
 import SkeletonProductCard from "../skeletons/SkeletonProductCard";
@@ -7,15 +10,30 @@ import SkeletonProductCard from "../skeletons/SkeletonProductCard";
 function Home() {
   const [datos, setDatos] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const { error } = useParams();
 
+  const MySwal = withReactContent(Swal);
+
+  const showSwal = () => {
+    MySwal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Something went wrong!",
+    });
+  };
 
   useEffect(() => {
-    homeProducts().then((datos) => {
-      console.log(datos);
-      setDatos(datos);
-      setCargando(false);
-    });
-  }, []);
+    homeProducts(error)
+      .then((datos) => {
+        console.log(datos);
+        setDatos(datos);
+        setCargando(false);
+      })
+      .catch(() => {
+        showSwal();
+      });
+  });
+  
   return (
     <div className="d-flex flex-wrap justify-content-center">
       {

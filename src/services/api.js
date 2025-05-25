@@ -4,7 +4,10 @@ const api = axios.create({
   baseURL: "https://fakestoreapi.com",
 });
 
-export const homeProducts = async () => {
+export const homeProducts = async (forceError) => {
+  if (forceError === "error") {
+    throw new Error("Error en la petición");
+  };
   const respuesta = await api.get("/products");
   return respuesta.data;
 };
