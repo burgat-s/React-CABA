@@ -13,6 +13,6 @@ export const homeProducts = async (forceError) => {
 };
 
 export const electronicsProducts = async () => {
-  const respuesta = await api.get("/category/electronics");
+  const respuesta = await api.get("/products/category/electronics");
   return respuesta.data;
 };

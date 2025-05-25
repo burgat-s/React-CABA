@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { homeProducts } from "../services/api";
 import Swal from "sweetalert2";
 import SwalReact from "sweetalert2-react-content";
-
 import ProductCard from "../components/ProductCard";
 import SkeletonProductCard from "../skeletons/SkeletonProductCard";
 
@@ -13,8 +12,6 @@ function Home() {
   const { error } = useParams();
 
   useEffect(() => {
-
-
     homeProducts(error)
       .then((datos) => {
         console.log(datos);
@@ -29,6 +26,7 @@ function Home() {
         });
       });
   }, [error]);
+
   return (
     <div className="d-flex flex-wrap justify-content-center">
       {

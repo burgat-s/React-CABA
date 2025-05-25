@@ -1,11 +1,48 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import { electronicsProducts } from "../services/api";
+import Swal from "sweetalert2";
+import SwalReact from "sweetalert2-react-content";
+import ProductCard from "../components/ProductCard";
+import SkeletonProductCard from "../skeletons/SkeletonProductCard";
 
 function Electronics() {
+  const [datos, setDatos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    electronicsProducts()
+      .then((datos) => {
+        console.log(datos);
+        setDatos(datos);
+        setCargando(false);
+      })
+      .catch(() => {
+        SwalReact(Swal).fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+  }, []);
+
   return (
-    <div>
-      <h1>Electronics</h1>
+    <div className="d-flex flex-wrap justify-content-center">
+      {cargando ? (
+        <SkeletonProductCard />
+      ) : (
+        datos.map((dato) => (
+          <div key={dato.id} className="m-3">
+            <ProductCard
+              id={dato.id}
+              imageUrl={dato.image}
+              description={dato.description}
+              price={dato.price}
+            />
+          </div>
+        ))
+      )}
     </div>
   );
-};
+}
 
 export default Electronics;
