@@ -1,10 +1,11 @@
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import SwalReact from "sweetalert2-react-content";
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const isAuth = localStorage.getItem("auth") === "true";
   const username = localStorage.getItem("username");
   const firstRender = localStorage.getItem("firstRender");
@@ -32,13 +33,25 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
+            <Nav.Link
+              as={Link}
+              to="/"
+              className={location.pathname === "/" ? "fw-bold" : ""}
+            >
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/electronics">
+            <Nav.Link
+              as={Link}
+              to="/electronics"
+              className={location.pathname === "/electronics" ? "fw-bold" : ""}
+            >
               Electronics
             </Nav.Link>
-            <Nav.Link as={Link} to="/about">
+            <Nav.Link
+              as={Link}
+              to="/about"
+              className={location.pathname === "/about" ? "fw-bold" : ""}
+            >
               About
             </Nav.Link>
           </Nav>
