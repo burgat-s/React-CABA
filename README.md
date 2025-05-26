@@ -15,8 +15,8 @@ These instructions will help you set up and run the application in development m
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/react-caba-ecommerce.git
-   cd react-caba-ecommerce
+   git clone https://github.com/burgat-s/React-CABA
+   cd React-CABA
    ```
 
 2. **Install dependencies:**
@@ -33,7 +33,7 @@ To start the application in development mode, run the following command:
 npm run dev
 ```
 
-This will start the development server, and you can view the application by navigating to `http://localhost:3000` in your web browser.
+This will start the development server, and you can view the application by navigating to `http://localhost:5173/` in your web browser.
 
 ### Building for Production
 
@@ -52,11 +52,14 @@ npm run lint
 ```
 
 ## Technologies Used
-
 - React
 - React Router
 - Bootstrap
+- React Bootstrap
+- React Hook Form
+- Sweet Alert for alerts and notifications
+- Prettier for code formatting
+- Eslint for code linting
 - Vite for development server and build tool
 
 Feel free to explore the code and modify it to suit your needs. Happy coding!
-
