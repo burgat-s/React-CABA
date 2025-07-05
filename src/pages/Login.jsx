@@ -3,40 +3,39 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import SwalReact from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
-
+import { UseUser } from "../context/UserContext";
 
 export default function LoginForm() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  
-  const usuarios = [
-    {username: "juan", password: "123456"},
-    {username: "pedro", password: "clave123"},
-    {username: "maria", password: "mari123"},
-    {username: "jose", password: "jose123"},
-    {username: "luis", password: "luis123"},
-    {username: "ana", password: "ana123"},
-    {username: "carlos", password: "carlos123"},
-    {username: "daniel", password: "daniel123"},
-    {username: "sara", password: "sara123"},
-    {username: "pablo", password: "pablo123"}
-  ];
+  const { login } = UseUser();
 
-  const onSubmit = (data) => {
-    const usuarioEncontrado = usuarios.find(
-      (u) => u.username === data.username && u.password === data.password
-    );
-    if (usuarioEncontrado) { 
-      localStorage.setItem("auth", true);
-      localStorage.setItem("username", data.username);
-      navigate("/");
-    } else {
-      SwalReact(Swal).fire({
-        title: "Error",
-        text: "Usuario o contraseña incorrectos",
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch(`${apiUrl}`);
+      const usuarios = await response.json();
+      const usuarioEncontrado = usuarios.find(
+        (u) => u.username === data.username && u.password === data.password
+      );
+      if (usuarioEncontrado) {
+        login(usuarioEncontrado);
+        localStorage.setItem("auth", true);
+        if (usuarioEncontrado.admin) {
+          navigate("/usuarios");
+        } else {
+          navigate("/");
+        }
+      } else {
+        SwalReact(Swal).fire({
+          title: "Error",
+          text: "Usuario o contraseña incorrectos",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

@@ -1,0 +1,21 @@
+PARA USAR GIT PAGES CON REACT
+1- Instalar gh-pages: para eso desde la terminal me ubico en la carpeta del proyecto:
+npm install gh-pages --save-dev
+2-Ajusto el package.json agregando 10 siguiente:
+En la sección SCRIPTS, debajo de "dev"y antes de "build" agrego:
+"predeploy": "npm run build",
+"deploy": "gh-pages -d dist",
+3-Ajusto el archivo vite.config.js agregando el repositorio donde se hará el deploy
+En la función defineConfig0 agrego 10 siguiente:
+base: "/Nombre del repositorio",
+La función quedaría de la siguiente manera:
+export default defineConfig({
+base: "/entrega-apellido",
+plugins: [react()l,
+4- Subo los cambios a github
+git add .
+git commit -m "gh-pages added"
+git push
+5- Genero el deploy
+npm run deploy
+Listo. Ahi queda configurado git pages

@@ -14,7 +14,6 @@ function Home() {
   useEffect(() => {
     homeProducts(error)
       .then((datos) => {
-        console.log(datos);
         setDatos(datos);
         setCargando(false);
       })
@@ -29,22 +28,15 @@ function Home() {
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
-      {
-        cargando ? (
+      {cargando ? (
         <SkeletonProductCard />
       ) : (
-        datos.map(dato =>
-        <div key={dato.id} className="m-3">
-          <ProductCard
-            id={dato.id}
-            imageUrl={dato.image}
-            description={dato.description}
-            price={dato.price}
-          />
+        datos.map((dato) => (
+          <div key={dato.id} className="m-3">
+            <ProductCard product={dato} />
           </div>
-          )
-        )
-      }
+        ))
+      )}
     </div>
   );
 }

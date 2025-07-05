@@ -12,7 +12,6 @@ function Electronics() {
   useEffect(() => {
     electronicsProducts()
       .then((datos) => {
-        console.log(datos);
         setDatos(datos);
         setCargando(false);
       })
@@ -32,12 +31,7 @@ function Electronics() {
       ) : (
         datos.map((dato) => (
           <div key={dato.id} className="m-3">
-            <ProductCard
-              id={dato.id}
-              imageUrl={dato.image}
-              description={dato.description}
-              price={dato.price}
-            />
+            <ProductCard product={dato} />
           </div>
         ))
       )}
