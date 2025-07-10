@@ -19,7 +19,7 @@ const NavBar = () => {
     if (firstRender) {
       SwalReact(Swal).fire({
         title: "Información Importante",
-        text: "Usuario y contraseña para el login son: juan y 123456. La ruta '/error' muestra manejo de error de API.",
+        text: "Usuario y contraseña para el login son: juan y 123456. La ruta '/error' muestra manejo de error de API. y para un user ADMIN el login es: admin y 123456",
         icon: "info",
         confirmButtonText: "Ok",
       });
